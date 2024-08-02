@@ -1,0 +1,31 @@
+.page {
+  padding: @padding-lg;
+  height: 700px;
+
+  header {
+    display: flex;
+
+    input {
+      width: 100%;
+    }
+
+    button {
+      margin-left: @margin-lg;
+    }
+  }
+
+  .content {
+    margin: @margin-lg 0;
+
+    .editor {
+      min-height: 400px;
+      height: calc(100vh - 280px);
+
+      :global {
+        .rc-md-navigation {
+          background-color: @white;
+        }
+      }
+    }
+  }
+}

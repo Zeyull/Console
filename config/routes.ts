@@ -29,6 +29,18 @@ export default [
     component: './Welcome',
   },
   {
+    path: '/website',
+    name: 'website',
+    icon: 'read',
+    routes: [
+      {
+        path: 'blog-manage',
+        name: 'blog-manage',
+        component: './BlogManage',
+      },
+    ],
+  },
+  {
     path: '/admin',
     name: 'admin',
     icon: 'crown',
