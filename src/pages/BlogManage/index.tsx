@@ -1,9 +1,10 @@
 import { PageContainer } from '@ant-design/pro-components';
 import { useIntl } from '@umijs/max';
-import { Breadcrumb, Button } from 'antd';
+import { Breadcrumb } from 'antd';
 import { useState } from 'react';
 import styles from './index.less';
 import CreateBlogPage from './components/CreateBlog';
+import BlogTable from './components/BlogTable';
 
 const BlogManage = () => {
   const intl = useIntl();
@@ -26,7 +27,6 @@ const BlogManage = () => {
       title: intl.formatMessage({ id: 'pages.website.blog-manage.create' }),
     },
   ];
-  const createLabel = intl.formatMessage({ id: 'pages.website.blog-manage.create' });
 
   return (
     <PageContainer breadcrumbRender={false}>
@@ -37,9 +37,7 @@ const BlogManage = () => {
         </>
       ) : (
         <>
-          <Button type="primary" onClick={() => setIsCreate(true)}>
-            {createLabel}
-          </Button>
+          <BlogTable sendCreateStatus={() => setIsCreate(true)} />
         </>
       )}
     </PageContainer>
