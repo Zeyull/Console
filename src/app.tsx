@@ -6,8 +6,8 @@ import type { RunTimeLayoutConfig } from '@umijs/max';
 import { history, Link } from '@umijs/max';
 import defaultSettings from '../config/defaultSettings';
 import { errorConfig } from './requestErrorConfig';
-import { currentUser as queryCurrentUser } from '@/services/ant-design-pro/api';
 import React from 'react';
+import { verifyToken } from './services/nozomi/user';
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
 
@@ -16,16 +16,23 @@ const loginPath = '/user/login';
  * */
 export async function getInitialState(): Promise<{
   settings?: Partial<LayoutSettings>;
-  currentUser?: API.CurrentUser;
+  currentUser?: API.VerifyTokenResponse['data'];
   loading?: boolean;
-  fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
+  fetchUserInfo?: () => Promise<API.VerifyTokenResponse['data'] | undefined>;
 }> {
   const fetchUserInfo = async () => {
     try {
-      const msg = await queryCurrentUser({
-        skipErrorHandler: true,
-      });
-      return msg.data;
+      const token = localStorage.getItem('authToken');
+      if (token === null) {
+        history.push(loginPath);
+        return undefined;
+      }
+      const res = await verifyToken({ token }, { skipErrorHandler: true });
+      if (res.code !== 200) {
+        history.push(loginPath);
+        return undefined;
+      }
+      return res.data;
     } catch (error) {
       history.push(loginPath);
     }
