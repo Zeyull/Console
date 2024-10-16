@@ -87,7 +87,7 @@ declare namespace API {
   type LoginResponse =
     // #/components/schemas/CommonResponse
     CommonResponse & {
-      data?: { token?: string; id?: Id };
+      data: { token?: string; id?: Id };
     };
 
   type PaginationData = {

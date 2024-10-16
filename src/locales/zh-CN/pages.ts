@@ -68,4 +68,14 @@ export default {
   'pages.searchTable.tenThousand': '万',
   'pages.searchTable.batchDeletion': '批量删除',
   'pages.searchTable.batchApproval': '批量审批',
+
+  'pages.blogTable.id': 'ID',
+  'pages.blogTable.title': '标题',
+  'pages.blogTable.content': '内容',
+  'pages.blogTable.createdAt': '创建时间',
+  'pages.blogTable.updateAt': '修改时间',
+  'pages.blogTable.titleOption': '操作',
+  'pages.blogTable.titleOption.view': '查看',
+  'pages.blogTable.titleOption.update': '修改',
+  'pages.blogTable.titleOption.delete': '删除',
 };

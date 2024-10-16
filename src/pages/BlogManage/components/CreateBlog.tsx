@@ -18,6 +18,10 @@ export default function CreateBlogPage() {
     setTitle(event.target.value);
   };
 
+  const handleCreateBlog = () => {
+    console.log('createBlog');
+  };
+
   const handleEditorChange = ({ html, text }: { html: string; text: string }) => {
     console.log(html, text);
   };
@@ -26,7 +30,7 @@ export default function CreateBlogPage() {
     <div className={styles.page}>
       <header>
         <Input placeholder={titlePlaceholder} value={title} onChange={handleTitleChange} />
-        <Button type="primary">
+        <Button type="primary" onClick={handleCreateBlog}>
           <FormattedMessage id="pages.website.blog-manage.create" />
         </Button>
       </header>

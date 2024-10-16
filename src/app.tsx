@@ -59,6 +59,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
   return {
     actionsRender: () => [<SelectLang key="SelectLang" />],
     avatarProps: {
+      //todo 账户没有头像
       src: initialState?.currentUser?.avatar,
       title: <AvatarName />,
       render: (_, avatarChildren) => {
