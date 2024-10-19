@@ -57,6 +57,12 @@ declare namespace API {
       data?: ArticleData;
     };
 
+  type CommonIdResponse =
+    // #/components/schemas/CommonResponse
+    CommonResponse & {
+      data?: { id?: Id };
+    };
+
   type CommonResponse = {
     code?: number;
     msg?: string;
@@ -69,6 +75,11 @@ declare namespace API {
     CommonResponse & {
       data?: { id?: Id };
     };
+
+  type deleteArticleParams = {
+    /** The unique identifier of the announcement to delete */
+    id: number;
+  };
 
   type ErrorResponse = {
     code?: number;

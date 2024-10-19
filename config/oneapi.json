@@ -61,6 +61,26 @@
           }
         }
       },
+      "CommonIdResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CommonResponse"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "$ref": "#/components/schemas/Id"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
       "UserRegister": {
         "type": "object",
         "properties": {
@@ -553,7 +573,7 @@
         "parameters": [
           {
             "name": "id",
-            "in": "path",
+            "in": "query",
             "required": true,
             "description": "The unique identifier of the account",
             "schema": {
@@ -628,7 +648,7 @@
         "parameters": [
           {
             "name": "id",
-            "in": "path",
+            "in": "query",
             "required": true,
             "description": "The unique identifier of the account to update",
             "schema": {
@@ -659,6 +679,44 @@
           },
           "400": {
             "description": "更新文章失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "删除文章",
+        "tags": ["article"],
+        "operationId": "deleteArticle",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "description": "The unique identifier of the announcement to delete",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "删除文章成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonIdResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "删除文章失败",
             "content": {
               "application/json": {
                 "schema": {

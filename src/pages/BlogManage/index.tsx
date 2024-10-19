@@ -1,15 +1,33 @@
 import { PageContainer } from '@ant-design/pro-components';
 import { useIntl } from '@umijs/max';
 import { Breadcrumb } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './index.less';
 import CreateBlogPage from './components/CreateBlog';
-import BlogTable from './components/BlogTable';
+import BlogTable, { OpenArticleType } from './components/BlogTable';
+
+const getCrumbLabel = (hash: string) => {
+  const type = Number(hash.split('&')[1]);
+  let label = 'pages.website.blogManage.create';
+  switch (type) {
+    case OpenArticleType.CREATE:
+      label = 'pages.website.blogManage.create';
+      break;
+    case OpenArticleType.UPDATE:
+      label = 'pages.website.blogManage.update';
+      break;
+    case OpenArticleType.VIEW:
+      label = 'pages.website.blogManage.view';
+      break;
+    default:
+      break;
+  }
+  return label;
+};
 
 const BlogManage = () => {
   const intl = useIntl();
-  const [isCreate, setIsCreate] = useState(false);
-
+  const [currentHash, setCurrentHash] = useState(window.location.hash);
   const breadCrumbItems = [
     {
       title: intl.formatMessage({
@@ -20,24 +38,40 @@ const BlogManage = () => {
       title: intl.formatMessage({
         id: 'menu.website.blog-manage',
       }),
-      onClick: () => setIsCreate(false),
+      onClick: () => {
+        window.location.hash = '';
+      },
       className: styles['cursor-pointer'],
     },
     {
-      title: intl.formatMessage({ id: 'pages.website.blog-manage.create' }),
+      title: intl.formatMessage({ id: getCrumbLabel(currentHash) }),
     },
   ];
 
+  useEffect(() => {
+    const handleHashChange = () => {
+      setCurrentHash(window.location.hash);
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+    };
+  }, []);
+
   return (
     <PageContainer breadcrumbRender={false}>
-      {isCreate ? (
+      {currentHash !== '' ? (
         <>
           <Breadcrumb items={breadCrumbItems} />
-          <CreateBlogPage />
+          <CreateBlogPage hash={currentHash} />
         </>
       ) : (
         <>
-          <BlogTable sendCreateStatus={() => setIsCreate(true)} />
+          <BlogTable
+            sendCreateStatus={() => (window.location.hash = `0&${OpenArticleType.CREATE}`)}
+          />
         </>
       )}
     </PageContainer>

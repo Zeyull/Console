@@ -25,9 +25,11 @@ export default {
   'pages.welcome.link': '欢迎使用',
   'pages.welcome.alertMessage': '更快更强的重型组件，已经发布。',
   'pages.welcome.description': '后台管理系统，目前有个人网站管理',
-  'pages.website.blog-manage.create': '创建博客',
-  'pages.website.blog-manage.create.title-input-placeholder': '请输入文章标题',
-  'pages.website.blog-manage.table.title': '列表',
+  'pages.website.blogManage.create': '创建博客',
+  'pages.website.blogManage.update': '修改博客',
+  'pages.website.blogManage.view': '查看博客',
+  'pages.website.blogManage.create.title-input-placeholder': '请输入文章标题',
+  'pages.website.blogManage.table.title': '列表',
   'pages.404.subTitle': '抱歉，您访问的页面不存在。',
   'pages.404.buttonText': '返回首页',
   'pages.admin.subPage.title': ' 这个页面只有 admin 权限才能查看',
@@ -78,4 +80,15 @@ export default {
   'pages.blogTable.titleOption.view': '查看',
   'pages.blogTable.titleOption.update': '修改',
   'pages.blogTable.titleOption.delete': '删除',
+  'pages.blogTable.create.emptyInput.tips': '文章标题或内容为空',
+  'pages.blogTable.create.success.tips': '创建文章成功',
+  'pages.blogTable.create.error.tips': '未知错误，创建文章失败',
+
+  'pages.blogTable.update.success.tips': '修改文章成功',
+  'pages.blogTable.update.error.tips': '未知错误，修改文章失败',
+
+  'pages.blogTable.delete.success.tips': '删除文章成功',
+  'pages.blogTable.delete.error.tips': '未知错误，删除文章失败',
+
+  'pages.blogTable.get.error.tips': '未知错误，获取文章失败',
 };
