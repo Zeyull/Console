@@ -756,6 +756,160 @@
           }
         }
       }
+    },
+    "/nozomi/announcements-list": {
+      "get": {
+        "summary": "获取公告列表",
+        "tags": ["announcement"],
+        "operationId": "getAnnouncementsList",
+        "responses": {
+          "200": {
+            "description": "获取所有公告",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnnouncementListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "获取失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/nozomi/announcement": {
+      "post": {
+        "summary": "新增公告",
+        "tags": ["announcement"],
+        "operationId": "addAnnouncement",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddAnnouncementData"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "新增公告成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddAnnouncementResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "新增公告失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "修改公告",
+        "tags": ["announcement"],
+        "operationId": "updateAnnouncement",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "description": "The unique identifier of the announcement to update",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAnnouncementData"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "修改公告成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateAnnouncementResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "修改公告失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "删除公告",
+        "tags": ["announcement"],
+        "operationId": "deleteAnnouncement",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "description": "The unique identifier of the announcement to delete",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "删除公告成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteAnnouncementResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "删除公告失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
