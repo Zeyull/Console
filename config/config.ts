@@ -76,7 +76,7 @@ export default defineConfig({
    * @name layout 插件
    * @doc https://umijs.org/docs/max/layout-menu
    */
-  title: 'Ant Design Pro',
+  title: 'Nozomi',
   layout: {
     locale: true,
     ...defaultSettings,
@@ -150,5 +150,5 @@ export default defineConfig({
   requestRecord: {},
   publicPath: '/app/nozomi/',
   base: '/app/nozomi/',
-  favicons: ['./favicon.ico'],
+  favicons: ['/app/nozomi/favicon.ico'],
 });
