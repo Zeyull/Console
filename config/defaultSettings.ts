@@ -17,7 +17,7 @@ const Settings: ProLayoutProps & {
   colorWeak: false,
   title: 'Nozomi',
   pwa: true,
-  logo: 'https://raw.githubusercontent.com/Zeyull/Pics/main/83343542_p0_ps_blackStroke.png',
+  logo: 'https://pic-zeyull.oss-cn-chengdu.aliyuncs.com/img/83343542_p0_ps_greyStroke.png',
   iconfontUrl: '',
   token: {
     // 参见ts声明，demo 见文档，通过token 修改样式
