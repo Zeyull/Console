@@ -151,4 +151,5 @@ export default defineConfig({
   publicPath: '/app/nozomi/',
   base: '/app/nozomi/',
   favicons: ['/app/nozomi/favicon.ico'],
+  outputPath: '/var/www/nozomi',
 });
