@@ -1,9 +1,9 @@
-import { Button, message } from 'antd';
+import { Button, Popconfirm, message } from 'antd';
 import { ProTable } from '@ant-design/pro-components';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { useRef, useState } from 'react';
 import { FormattedMessage, useIntl } from '@umijs/max';
-import { PlusOutlined } from '@ant-design/icons';
+import { PlusOutlined, WarningOutlined } from '@ant-design/icons';
 import { deleteArticle, getArticleList } from '@/services/nozomi/article';
 import { createStyles } from 'antd-style';
 
@@ -28,7 +28,7 @@ const useStyles = createStyles(() => {
 });
 
 const BlogTable = (props: { sendCreateStatus: any }) => {
-  const [selectedRowsState, setSelectedRows] = useState<any[]>([]);
+  const [, setSelectedRows] = useState<any[]>([]);
   const { styles } = useStyles();
   const actionRef = useRef<ActionType>();
   const intl = useIntl();
@@ -106,9 +106,19 @@ const BlogTable = (props: { sendCreateStatus: any }) => {
         <a key="update" onClick={() => updateBlog(entity.id)}>
           <FormattedMessage id="pages.blogTable.titleOption.update" />
         </a>,
-        <a key="delete" onClick={() => deleteBlog(entity.id)}>
-          <FormattedMessage id="pages.blogTable.titleOption.delete" />
-        </a>,
+        <Popconfirm
+          key="delete"
+          title={intl.formatMessage({ id: 'common.warn' })}
+          description={intl.formatMessage({ id: 'pages.blogTable.titleOption.confirm.delete' })}
+          icon={<WarningOutlined style={{ color: 'red' }} />}
+          onConfirm={() => deleteBlog(entity.id)}
+          okText={intl.formatMessage({ id: 'common.confirm' })}
+          cancelText={intl.formatMessage({ id: 'common.cancel' })}
+        >
+          <a>
+            <FormattedMessage id="pages.blogTable.titleOption.delete" />
+          </a>
+        </Popconfirm>,
       ],
     },
   ];
@@ -149,7 +159,6 @@ const BlogTable = (props: { sendCreateStatus: any }) => {
         rowSelection={{
           onChange: (_, selectedRows) => {
             setSelectedRows(selectedRows);
-            console.log(selectedRowsState);
           },
         }}
       />

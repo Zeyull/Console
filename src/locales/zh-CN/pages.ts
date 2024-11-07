@@ -27,6 +27,8 @@ export default {
   'pages.welcome.description': '后台管理系统，目前有个人网站管理',
   'pages.website.blogManage.create': '创建博客',
   'pages.website.blogManage.update': '修改博客',
+  'pages.website.blogManage.coverPic': '封面图片',
+  'pages.website.blogManage.currentCover': '当前封面',
   'pages.website.blogManage.view': '查看博客',
   'pages.website.blogManage.create.title-input-placeholder': '请输入文章标题',
   'pages.website.blogManage.table.title': '列表',
@@ -80,6 +82,7 @@ export default {
   'pages.blogTable.titleOption.view': '查看',
   'pages.blogTable.titleOption.update': '修改',
   'pages.blogTable.titleOption.delete': '删除',
+  'pages.blogTable.titleOption.confirm.delete': '确认是否删除该博客',
   'pages.blogTable.create.emptyInput.tips': '文章标题或内容为空',
   'pages.blogTable.create.success.tips': '创建文章成功',
   'pages.blogTable.create.error.tips': '未知错误，创建文章失败',
@@ -91,4 +94,7 @@ export default {
   'pages.blogTable.delete.error.tips': '未知错误，删除文章失败',
 
   'pages.blogTable.get.error.tips': '未知错误，获取文章失败',
+
+  'pages.blogTable.upload.pic.success.tips': '上传图片成功',
+  'pages.blogTable.upload.pic.error.tips': '上传图片失败',
 };
