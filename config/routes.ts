@@ -38,6 +38,11 @@ export default [
         name: 'blog-manage',
         component: './BlogManage',
       },
+      {
+        path: 'announcement-manage',
+        name: 'announcement-manage',
+        component: './AnnouncementManage',
+      },
     ],
   },
   {

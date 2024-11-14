@@ -3,6 +3,7 @@ export default {
   'menu.more-blocks': '更多区块',
   'menu.website': '个人网站',
   'menu.website.blog-manage': '博客管理',
+  'menu.website.announcement-manage': '公告管理',
   'menu.home': '首页',
   'menu.admin': '管理页',
   'menu.admin.sub-page': '二级管理页',

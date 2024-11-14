@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import styles from './index.less';
 import CreateBlogPage from './components/CreateBlog';
 import BlogTable, { OpenArticleType } from './components/BlogTable';
+import { RollbackOutlined } from '@ant-design/icons';
 
 const getCrumbLabel = (hash: string) => {
   const type = Number(hash.split('&')[1]);
@@ -64,7 +65,15 @@ const BlogManage = () => {
     <PageContainer breadcrumbRender={false}>
       {currentHash !== '' ? (
         <>
-          <Breadcrumb items={breadCrumbItems} />
+          <div className={styles['back-breadcrumb-box']}>
+            <RollbackOutlined
+              className={styles['back-icon']}
+              onClick={() => {
+                window.location.hash = '';
+              }}
+            />
+            <Breadcrumb items={breadCrumbItems} />
+          </div>
           <CreateBlogPage hash={currentHash} />
         </>
       ) : (

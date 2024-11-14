@@ -31,7 +31,9 @@ export default {
   'pages.website.blogManage.currentCover': '当前封面',
   'pages.website.blogManage.view': '查看博客',
   'pages.website.blogManage.create.title-input-placeholder': '请输入文章标题',
-  'pages.website.blogManage.table.title': '列表',
+  'pages.website.announcementManage.create': '创建公告',
+  'pages.website.blogManage.table.title': '博客列表',
+  'pages.website.announcementManage.table.title': '公告列表',
   'pages.404.subTitle': '抱歉，您访问的页面不存在。',
   'pages.404.buttonText': '返回首页',
   'pages.admin.subPage.title': ' 这个页面只有 admin 权限才能查看',
@@ -97,4 +99,24 @@ export default {
 
   'pages.blogTable.upload.pic.success.tips': '上传图片成功',
   'pages.blogTable.upload.pic.error.tips': '上传图片失败',
+
+  'pages.announcementManage.id': 'ID',
+  'pages.announcementManage.content': '内容',
+  'pages.announcementManage.announcementTime': '公告时间',
+  'pages.announcementManage.icon': '图标',
+  'pages.announcementManage.color': '图标颜色',
+  'pages.announcementManage.confirm.delete': '确实是否删除该公告',
+  'pages.announcementManage.content.label': '公告内容',
+  'pages.announcementManage.date.label': '公告时间',
+  'pages.announcementManage.icon.label': '选择图标',
+  'pages.announcementManage.color.label': '图标颜色',
+
+  'pages.announcementManage.create.success.tips': '创建公告成功',
+  'pages.announcementManage.create.error.tips': '未知错误，创建公告失败',
+
+  'pages.announcementManage.update.success.tips': '修改公告成功',
+  'pages.announcementManage.update.error.tips': '未知错误，修改公告失败',
+
+  'pages.announcementManage.delete.success.tips': '删除公告成功',
+  'pages.announcementManage.delete.error.tips': '未知错误，删除公告失败',
 };

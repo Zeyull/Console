@@ -2,6 +2,21 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
+/** 获取公告 GET /nozomi/announcement */
+export async function getAnnouncement(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.getAnnouncementParams,
+  options?: { [key: string]: any },
+) {
+  return request<API.GetAnnouncementResponse>('/nozomi/announcement', {
+    method: 'GET',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}
+
 /** 修改公告 PUT /nozomi/announcement */
 export async function updateAnnouncement(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)

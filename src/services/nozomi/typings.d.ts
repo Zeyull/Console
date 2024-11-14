@@ -3,6 +3,7 @@ declare namespace API {
     content: string;
     announcement_time: string;
     icon: string;
+    color: string;
   };
 
   type AddAnnouncementResponse =
@@ -24,10 +25,11 @@ declare namespace API {
     };
 
   type AnnouncementData = {
-    id?: Id;
-    content?: string;
-    announcement_time?: string;
-    icon?: string;
+    id: Id;
+    content: string;
+    announcement_time: string;
+    icon: string;
+    color: string;
   };
 
   type AnnouncementListResponse =
@@ -93,6 +95,17 @@ declare namespace API {
     data?: any;
   };
 
+  type getAnnouncementParams = {
+    /** The unique identifier of the account */
+    id: number;
+  };
+
+  type GetAnnouncementResponse =
+    // #/components/schemas/CommonResponse
+    CommonResponse & {
+      data?: AnnouncementData;
+    };
+
   type getArticleParams = {
     /** The unique identifier of the account */
     id: number;
@@ -120,6 +133,7 @@ declare namespace API {
     content: string;
     announcement_time: string;
     icon: string;
+    color: string;
   };
 
   type updateAnnouncementParams = {
