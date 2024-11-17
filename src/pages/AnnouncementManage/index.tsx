@@ -4,15 +4,8 @@ import { ActionType, PageContainer, ProColumns, ProTable } from '@ant-design/pro
 import { FormattedMessage, useIntl } from '@umijs/max';
 import { Popconfirm, message } from 'antd';
 import React, { useRef } from 'react';
-import * as Icons from '@ant-design/icons';
 import CreateAnnouncement from './components/CreateAnnouncement';
-
-function generateChronicleIcon(icon: string, color: string) {
-  // @ts-ignore
-  return React.createElement(Icons[icon], {
-    twoToneColor: color,
-  });
-}
+import { generateChronicleIcon } from '@/utils/tools';
 
 const AnnouncementManage = () => {
   const intl = useIntl();

@@ -13,9 +13,10 @@ import {
   ProFormItem,
 } from '@ant-design/pro-components';
 import { useIntl } from '@umijs/max';
-import { Button, ColorPicker, ColorPickerProps, message, theme } from 'antd';
+import { Button, ColorPicker, ColorPickerProps, InputRef, message, theme } from 'antd';
 import { generate, green, presetPalettes, red } from '@ant-design/colors';
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { SelectIcons } from './SelectIcons';
 
 type Presets = Required<ColorPickerProps>['presets'][number];
 const genPresets = (presets = presetPalettes) =>
@@ -25,8 +26,10 @@ export default forwardRef(function CreateAnnouncement({ tableRef }: { tableRef: 
   const { token } = theme.useToken();
   const presets = genPresets({ primary: generate(token.colorPrimary), red, green });
   const formRef = useRef<ProFormInstance>();
+  const iconInputRef = useRef<InputRef>(null);
   const [drawerStatus, setDrawerStatus] = useState(false);
   const [announcementId, setAnnouncementId] = useState(-1);
+  const [selectedIcon, setSelectIcon] = useState('');
   const intl = useIntl();
 
   const createText = intl.formatMessage({ id: 'pages.website.announcementManage.create' });
@@ -60,6 +63,25 @@ export default forwardRef(function CreateAnnouncement({ tableRef }: { tableRef: 
     } catch {
       message.error(intl.formatMessage({ id: 'pages.announcementManage.update.error.tips' }));
       return false;
+    }
+  };
+
+  const handleIconChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectIcon(e.target.value);
+  };
+
+  const targetIconInputOnChange = (value: string) => {
+    if (iconInputRef?.current?.input) {
+      //这里一定要手动调用set修改值，不然React内部状态不会变，不会触发onChange事件
+      // @ts-ignore 获取原生的 input 元素
+      const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
+        window.HTMLInputElement.prototype,
+        'value',
+      ).set;
+      // @ts-ignore 使用 setter 修改值
+      nativeInputValueSetter.call(iconInputRef.current.input, value);
+      const event = new Event('input', { bubbles: true });
+      iconInputRef.current.input.dispatchEvent(event);
     }
   };
 
@@ -140,6 +162,18 @@ export default forwardRef(function CreateAnnouncement({ tableRef }: { tableRef: 
           />
         </ProForm.Group>
         <ProForm.Group>
+          <ProFormText
+            width="md"
+            name="icon"
+            required={true}
+            rules={[{ required: true }]}
+            label={intl.formatMessage({ id: 'pages.announcementManage.icon.label' })}
+            fieldProps={{
+              ref: iconInputRef,
+              onChange: handleIconChange,
+              value: selectedIcon,
+            }}
+          />
           <ProFormItem
             name="color"
             required={true}
@@ -152,14 +186,12 @@ export default forwardRef(function CreateAnnouncement({ tableRef }: { tableRef: 
               disabledAlpha
             ></ColorPicker>
           </ProFormItem>
-          <ProFormText
-            width="md"
-            name="icon"
-            required={true}
-            rules={[{ required: true }]}
-            label={intl.formatMessage({ id: 'pages.announcementManage.icon.label' })}
-          />
         </ProForm.Group>
+        <SelectIcons
+          value={selectedIcon}
+          setValue={setSelectIcon}
+          targetOnChange={targetIconInputOnChange}
+        ></SelectIcons>
       </DrawerForm>
     </>
   );
