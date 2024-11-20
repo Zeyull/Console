@@ -25,13 +25,15 @@ const genPresets = (presets = presetPalettes) =>
 export default forwardRef(function CreateAnnouncement({ tableRef }: { tableRef: any }, ref: any) {
   const { token } = theme.useToken();
   const presets = genPresets({ primary: generate(token.colorPrimary), red, green });
+
   const formRef = useRef<ProFormInstance>();
   const iconInputRef = useRef<InputRef>(null);
   const [drawerStatus, setDrawerStatus] = useState(false);
   const [announcementId, setAnnouncementId] = useState(-1);
+  const [colorValue, setColorValue] = useState(token.colorPrimary);
   const [selectedIcon, setSelectIcon] = useState('');
-  const intl = useIntl();
 
+  const intl = useIntl();
   const createText = intl.formatMessage({ id: 'pages.website.announcementManage.create' });
 
   const createAnnouncementFn = async (values: API.AddAnnouncementData) => {
@@ -66,10 +68,6 @@ export default forwardRef(function CreateAnnouncement({ tableRef }: { tableRef: 
     }
   };
 
-  const handleIconChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectIcon(e.target.value);
-  };
-
   const targetIconInputOnChange = (value: string) => {
     if (iconInputRef?.current?.input) {
       //这里一定要手动调用set修改值，不然React内部状态不会变，不会触发onChange事件
@@ -97,17 +95,26 @@ export default forwardRef(function CreateAnnouncement({ tableRef }: { tableRef: 
       const announcement = await getAnnouncement({ id: announcementId });
       if (announcement.code === 200) {
         formRef?.current?.setFieldsValue(announcement.data);
+        setSelectIcon(announcement.data?.icon ?? '');
+        setColorValue(announcement.data?.color ?? token.colorPrimary);
       } else {
         message.error(announcement.msg);
       }
     }
 
+    // 创建时初始化表单
+    if (drawerStatus && announcementId === -1) {
+      formRef?.current?.resetFields();
+      formRef?.current?.setFieldValue('color', token.colorPrimary);
+      setSelectIcon('');
+      setColorValue(token.colorPrimary);
+    }
+
+    // 修改时初始化表单
     if (announcementId !== -1) {
       initAnnouncement();
-    } else {
-      formRef?.current?.resetFields();
     }
-  }, [announcementId]);
+  }, [announcementId, drawerStatus]);
 
   return (
     <>
@@ -128,8 +135,7 @@ export default forwardRef(function CreateAnnouncement({ tableRef }: { tableRef: 
         open={drawerStatus}
         onOpenChange={setDrawerStatus}
         onFinish={async (values: any) => {
-          const color = values.color.toHexString();
-          values.color = color;
+          values.color = colorValue;
           if (announcementId === -1) {
             const createResult = await createAnnouncementFn(values);
             if (createResult) {
@@ -170,7 +176,7 @@ export default forwardRef(function CreateAnnouncement({ tableRef }: { tableRef: 
             label={intl.formatMessage({ id: 'pages.announcementManage.icon.label' })}
             fieldProps={{
               ref: iconInputRef,
-              onChange: handleIconChange,
+              onChange: (e: React.ChangeEvent<HTMLInputElement>) => setSelectIcon(e.target.value),
               value: selectedIcon,
             }}
           />
@@ -184,6 +190,8 @@ export default forwardRef(function CreateAnnouncement({ tableRef }: { tableRef: 
               presets={presets}
               showText={(color) => <span>{color.toHexString().slice(0, 7)}</span>}
               disabledAlpha
+              value={colorValue}
+              onChange={(_e, hex: string) => setColorValue(hex)}
             ></ColorPicker>
           </ProFormItem>
         </ProForm.Group>
