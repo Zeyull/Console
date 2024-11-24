@@ -66,7 +66,7 @@ const BlogTable = (props: { sendCreateStatus: any }) => {
       title: <FormattedMessage id="pages.blogTable.title" />,
       dataIndex: 'title',
       valueType: 'text',
-      width: '20%',
+      width: '15%',
       render: (_, entity) => {
         const title = entity.title;
         return <span className={styles.content}>{title}</span>;
@@ -80,6 +80,15 @@ const BlogTable = (props: { sendCreateStatus: any }) => {
       render: (_, entity) => {
         const content = entity.content;
         return <span className={styles.content}>{content}</span>;
+      },
+    },
+    {
+      title: <FormattedMessage id="pages.website.blogManage.isVisible" />,
+      dataIndex: 'is_visible',
+      width: '7%',
+      render: (_, entity) => {
+        const isVisible = entity.is_visible ? 'common.yes' : 'common.no';
+        return <span>{intl.formatMessage({ id: isVisible })}</span>;
       },
     },
     {

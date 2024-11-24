@@ -1,4 +1,16 @@
-import { Button, Drawer, Image, Input, Upload, UploadFile, UploadProps, message } from 'antd';
+import {
+  Button,
+  Drawer,
+  Form,
+  Image,
+  Input,
+  Space,
+  Switch,
+  Upload,
+  UploadFile,
+  UploadProps,
+  message,
+} from 'antd';
 import MarkdownIt from 'markdown-it';
 import { ChangeEvent, useEffect, useState } from 'react';
 import MdEditor from 'react-markdown-editor-lite';
@@ -9,6 +21,10 @@ import { addArticle, getArticle, updateArticle } from '@/services/nozomi/article
 import { OpenArticleType } from './BlogTable';
 import { PlusOutlined } from '@ant-design/icons';
 
+interface FormConfig {
+  is_visible: number;
+}
+
 export default function CreateBlogPage({ hash }: { hash: string }) {
   const intl = useIntl();
   const [title, setTitle] = useState('');
@@ -17,6 +33,7 @@ export default function CreateBlogPage({ hash }: { hash: string }) {
   const [drawerStatus, setDrawerStatus] = useState(false);
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [previewImage, setPreviewImage] = useState<string>('');
+  const [configValue, setConfigValue] = useState<FormConfig>({ is_visible: 1 });
   const mdParser = new MarkdownIt();
   const titlePlaceholder = intl.formatMessage({
     id: 'pages.website.blogManage.create.title-input-placeholder',
@@ -37,6 +54,9 @@ export default function CreateBlogPage({ hash }: { hash: string }) {
               if (data?.picture) {
                 setPreviewImage(data.picture as string);
               }
+              setConfigValue({
+                is_visible: data?.is_visible ?? 1,
+              });
             } else {
               message.error(res.msg);
             }
@@ -63,6 +83,7 @@ export default function CreateBlogPage({ hash }: { hash: string }) {
         title: title.trim(),
         content,
         picture: previewImage === '' ? undefined : previewImage,
+        ...configValue,
       });
       if (res.code === 200) {
         message.success(intl.formatMessage({ id: 'pages.blogTable.create.success.tips' }));
@@ -88,6 +109,7 @@ export default function CreateBlogPage({ hash }: { hash: string }) {
           title: title.trim(),
           content,
           picture: previewImage === '' ? undefined : previewImage,
+          ...configValue,
         },
       );
       if (res.code === 200) {
@@ -161,12 +183,11 @@ export default function CreateBlogPage({ hash }: { hash: string }) {
               <FormattedMessage id="pages.website.blogManage.update" />
             </Button>
           )}
-          {!(openType === OpenArticleType.VIEW && previewImage === '') && (
-            <Button onClick={showDrawer}>
-              <FormattedMessage id="pages.website.blogManage.coverPic" />
-            </Button>
-          )}
+          <Button onClick={showDrawer}>
+            <FormattedMessage id="pages.website.blogManage.other.config" />
+          </Button>
         </header>
+
         <div className={styles.content}>
           <MdEditor
             className={styles.editor}
@@ -178,30 +199,63 @@ export default function CreateBlogPage({ hash }: { hash: string }) {
         </div>
       </div>
       <Drawer
-        title={intl.formatMessage({ id: 'pages.website.blogManage.coverPic' })}
+        title={intl.formatMessage({ id: 'pages.website.blogManage.other.config' })}
         onClose={closeDrawer}
         open={drawerStatus}
         size="large"
       >
-        <Upload
-          accept=".png,.jpg"
-          action="/nozomi/oss/upload-pic"
-          listType="picture-card"
-          fileList={fileList}
-          onChange={handlePicChange}
-          headers={headers}
-          onRemove={onPicRemove}
-          name="image"
-        >
-          {fileList.length >= 1 || openType === OpenArticleType.VIEW ? null : uploadButton}
-        </Upload>
+        <Space direction="vertical" size="small" style={{ display: 'flex' }}>
+          <Form
+            name="basic"
+            wrapperCol={{ span: 16 }}
+            style={{ maxWidth: 600 }}
+            autoComplete="off"
+            initialValues={configValue}
+            onValuesChange={(value) =>
+              setConfigValue({
+                ...value,
+                is_visible: Number(value.is_visible),
+              })
+            }
+          >
+            <Form.Item<FormConfig>
+              label={intl.formatMessage({ id: 'pages.website.blogManage.isVisible' })}
+              name="is_visible"
+            >
+              <Switch />
+            </Form.Item>
+          </Form>
 
-        {previewImage !== '' ? (
-          <>
-            <p>{intl.formatMessage({ id: 'pages.website.blogManage.currentCover' })}</p>
-            <Image width={'100%'} src={previewImage} />
-          </>
-        ) : null}
+          <div>
+            {openType === OpenArticleType.VIEW ? null : (
+              <>
+                <p className="form-label">
+                  {intl.formatMessage({ id: 'pages.website.blogManage.coverPic' })}
+                </p>
+                <Upload
+                  accept=".png,.jpg"
+                  action="/nozomi/oss/upload-pic"
+                  listType="picture-card"
+                  fileList={fileList}
+                  onChange={handlePicChange}
+                  headers={headers}
+                  onRemove={onPicRemove}
+                  name="image"
+                >
+                  {fileList.length >= 1 ? null : uploadButton}
+                </Upload>
+              </>
+            )}
+            {previewImage !== '' ? (
+              <>
+                <p className="form-label">
+                  {intl.formatMessage({ id: 'pages.website.blogManage.currentCover' })}
+                </p>
+                <Image width={'100%'} src={previewImage} />
+              </>
+            ) : null}
+          </div>
+        </Space>
       </Drawer>
     </>
   );

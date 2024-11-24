@@ -210,9 +210,13 @@
           },
           "picture": {
             "type": "string"
+          },
+          "is_visible": {
+            "type": "number",
+            "description": "值为0，1。1为显示，0为隐藏"
           }
         },
-        "required": ["id", "title", "content", "created_at", "updated_at"]
+        "required": ["id", "title", "content", "created_at", "updated_at", "is_visible"]
       },
       "AddArticleData": {
         "type": "object",
@@ -225,9 +229,12 @@
           },
           "picture": {
             "type": "string"
+          },
+          "is_visible": {
+            "type": "number"
           }
         },
-        "required": ["title", "content"]
+        "required": ["title", "content", "is_visible"]
       },
       "UpdateArticleData": {
         "type": "object",
@@ -240,9 +247,12 @@
           },
           "picture": {
             "type": "string"
+          },
+          "is_visible": {
+            "type": "number"
           }
         },
-        "required": ["title", "content"]
+        "required": ["title", "content", "is_visible"]
       },
       "ArticleResponse": {
         "allOf": [

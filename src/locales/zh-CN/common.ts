@@ -7,4 +7,7 @@ export default {
   'common.view': '查看',
   'common.update': '修改',
   'common.delete': '删除',
+
+  'common.yes': '是',
+  'common.no': '否',
 };
