@@ -97,6 +97,7 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu, childre
     return loading;
   }
 
+  // todo 后续再扩充，menu是boolean类型的
   const menuItems = [
     ...(menu
       ? [

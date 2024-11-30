@@ -185,6 +185,6 @@ declare namespace API {
   type VerifyTokenResponse =
     // #/components/schemas/CommonResponse
     CommonResponse & {
-      data?: { id?: Id; username?: string; description?: string };
+      data?: { id?: Id; username?: string; avatar?: string; description?: string };
     };
 }

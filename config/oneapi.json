@@ -174,11 +174,15 @@
             "properties": {
               "data": {
                 "type": "object",
+                "required": ["id", "username", "description", "avatar"],
                 "properties": {
                   "id": {
                     "$ref": "#/components/schemas/Id"
                   },
                   "username": {
+                    "type": "string"
+                  },
+                  "avatar": {
                     "type": "string"
                   },
                   "description": {
